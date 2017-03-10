@@ -15,6 +15,9 @@
 FROM node
 MAINTAINER Philippe Mulet "philippe_mulet@fr.ibm.com"
 
+LABEL Name = "helloworld"
+LABEL Version = "1.0"
+
 # Install the application
 ADD package.json /app/package.json
 RUN cd /app && npm install  
@@ -34,7 +37,7 @@ RUN grep -q '^password.*required' /etc/pam.d/common-password && sed -i 's/^passw
 
 # Vulnerability Advisor : Temporarily remove or upgrade a discovered vulnerable <package>
 # RUN dpkg --purge --force-all imagermagick
-apt-get install imagermagick=8:6.8.9.9-5+deb8u7
+RUN apt-get install imagermagick=8:6.8.9.9-5+deb8u7
 
 # Define command to run the application when the container starts
 CMD ["node", "/app/app.js"] 
